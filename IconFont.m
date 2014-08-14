@@ -25,7 +25,7 @@
 }
 
 +(void)loadFontList{
-    NSDictionary *fontDict = [NSDictionary objectFromData:[NSData fromResource:@"fontIconConfig.json"]];
+    NSDictionary *fontDict = [self dictionaryFromResource:@"fontIconConfig.json"];
     NSArray *fontList = [fontDict allValues];
     #ifndef DISABLE_FOUNDATIONICONS_AUTO_REGISTRATION
         static dispatch_once_t onceToken;
@@ -42,14 +42,32 @@
 
 +(NSString *)icon:(NSString *)iconName fromFont:(NSString *)fontName{
     [self loadFontList];
-    NSDictionary *fontDict = [NSDictionary objectFromData:[NSData fromResource:@"fontIconConfig.json"]];
+    NSDictionary *fontDict = [self dictionaryFromResource:@"fontIconConfig.json"];
     NSString *json = [[fontDict objectForKey:fontName] objectForKey:@"json"];
-    NSDictionary *dict = [NSDictionary objectFromData:[NSData fromResource:json]];
+    NSDictionary *dict = [self dictionaryFromResource:json];
     NSString *icon = nil;
     if([dict objectForKey:iconName]){
         icon = [dict objectForKey:iconName];
     }
     return icon;
+}
+
++ (NSDictionary *)dictionaryFromResource:(NSString *)resName{
+    NSString *	extension = [resName pathExtension];
+    NSString *	fullName = [resName substringToIndex:(resName.length - extension.length - 1)];
+    
+    NSString * path = [[NSBundle mainBundle] pathForResource:fullName ofType:extension];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    
+    NSError * error = nil;
+    NSObject * obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    
+    if ( obj && [obj isKindOfClass:[NSDictionary class]])
+    {
+        return (NSDictionary *)obj;
+    }else{
+        return nil;
+    }
 }
 
 + (UIFont*)font:(NSString *)fontName withSize:(CGFloat)size
