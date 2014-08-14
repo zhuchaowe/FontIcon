@@ -14,4 +14,37 @@ now we can use icon by font
 *  [Foundation icons](http://zurb.com/playground/foundation-icon-fonts-3) 字体库, 包含283 个图标
 *  [Zocial Contains](http://zocial.smcllns.com/) 字体库, 包含99 个图标
 *  [ionicons 1.5.2](http://ionicons.com/) 字体库, 包含601 个图标,大部分是 IOS7 style
+*  [Demo is here](https://github.com/zhuchaowe/EasyIOS)
 
+##Install
+
+* 1.Import from CocoaPods
+ 	Add below to Podfile and run pod install
+
+		pod 'FontIcon', '~> 1.0'
+		
+* 2.Clone the repo (HTTP)
+
+		https://github.com/zhuchaowe/FontIcon.git
+		
+
+	
+##Tasks
+###Class IconFont
+
++ icon:fromFont:
++ font:withSize:
++ labelWithIcon:fontName:size:color:
++ label:fontName:setIcon:size:color:sizeToFit:
++ buttonWithIcon:fontName:size:color:
++ button:fontName:setIcon:size:color:
++ imageWithIcon:fontName:iconColor:iconSize:
++ imageWithIcon:fontName:iconColor:iconSize:imageSize:
++ imageWithText:font:iconColor:imageSize:
++ imageWithIcon:fontName:size:color:
+	
+##Usage
+
+
+	NSString *icon = [IconFont icon:@"fa_align_left" fromFont:fontAwesome];
+	[IconFont buttonWithIcon:icon fontName:fontAwesome size:24.0f color:[UIColor whiteColor]];
