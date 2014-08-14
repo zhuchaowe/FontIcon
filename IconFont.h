@@ -4,7 +4,7 @@
 //  www.taptemplate.com
 //
 
-#import "Easy.h"
+
 #import "FontHeader.h"
 @interface IconFont : NSObject
 
