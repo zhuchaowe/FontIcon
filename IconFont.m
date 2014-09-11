@@ -31,13 +31,17 @@
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             for (NSDictionary *resDict in fontList) {
-                NSString *  resName = [resDict objectForKey:@"ttf"];
-                NSString *	extension = [resName pathExtension];
-                NSString *	fullName = [resName substringToIndex:(resName.length - extension.length - 1)];
-                [self registerIconFontWithURL: [[NSBundle mainBundle] URLForResource:fullName withExtension:extension]];
+                [self registerFontWithDict:resDict];
             }
         });
     #endif
+}
+
++(void)registerFontWithDict:(NSDictionary*)resDict{
+    NSString *  resName = [resDict objectForKey:@"ttf"];
+    NSString *	extension = [resName pathExtension];
+    NSString *	fullName = [resName substringToIndex:(resName.length - extension.length - 1)];
+    [self registerIconFontWithURL: [[NSBundle mainBundle] URLForResource:fullName withExtension:extension]];
 }
 
 +(NSString *)icon:(NSString *)iconName fromFont:(NSString *)fontName{
