@@ -24,6 +24,22 @@
     CGFontRelease(newFont);
 }
 
++(void)logFontList{
+    NSArray *familyNames = [UIFont familyNames];
+    NSArray *fontNames;
+    NSInteger indFamily, indFont;
+    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+    {
+        NSLog(@"TTIFont Index:%d   Family name: %@",indFamily, [familyNames objectAtIndex:indFamily]);
+        fontNames = [UIFont fontNamesForFamilyName:
+                     [familyNames objectAtIndex:indFamily]];
+        for (indFont=0; indFont<[fontNames count]; ++indFont)
+        {
+            NSLog(@" Font name: %@", [fontNames objectAtIndex:indFont]);
+        }
+    }
+}
+
 +(void)loadFontList{
     NSDictionary *fontDict = [self dictionaryFromResource:@"fontIconConfig.json"];
     NSArray *fontList = [fontDict allValues];
